@@ -7,23 +7,44 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+class User(Base):
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    username = Column(String)
+    email = Column(String, unique=True)
+    favorites = Column(String)
+    password = Column(String)  
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Character(Base):
+    __tablename__ = 'characters'
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    name = Column(String)
+    height = Column(String)
+    weight = Column(String)
+    mass = Column(String)
+    films = Column(String)
+
+class Vehicle(Base):
+    __tablename__ = 'vehicles'
+    id = Column(Integer, primary_key=True)
+    cargo_capacity = Column(Integer)
+    consumables = Column(String)
+    cost_in_credits = Column(Integer)
+    created = Column(String)
+    crew = Column(Integer)
+
+class Planet(Base):
+    __tablename__ = 'planets'
+    id = Column(Integer, primary_key=True)
+    climate = Column(String)
+    diameter = Column(String)
+    gravity = Column(String)
+    name = Column(String)
+
+class Favorites(Base):
+    __tablename__ = 'favourites'
+    id = Column(Integer, primary_key=True)
+    id_user_favourite = Column(Integer)
 
     def to_dict(self):
         return {}
