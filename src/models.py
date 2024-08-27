@@ -26,7 +26,7 @@ class Character(Base):
     films = Column(String)
  
 
-class Vehicle(Base):
+class Vehicles(Base):
     __tablename__ = 'vehicles'
     id = Column(Integer, primary_key=True)
     cargo_capacity = Column(Integer)
@@ -52,6 +52,8 @@ class Favorites(Base):
     character = relationship('Character')
     planet_id = Column(Integer, ForeignKey('planets.id'))
     planet = relationship('Planet')
+    vehicles= relationship('Vehicles')
+    vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
 
 
     def to_dict(self):
