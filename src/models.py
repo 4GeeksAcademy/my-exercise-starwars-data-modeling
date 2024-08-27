@@ -12,8 +12,9 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String)
     email = Column(String, unique=True)
-    favorites = Column(String)
     password = Column(String)  
+    favorites = relationship('Favorites', back_populates='user')
+
 
 class Character(Base):
     __tablename__ = 'characters'
@@ -23,6 +24,7 @@ class Character(Base):
     weight = Column(String)
     mass = Column(String)
     films = Column(String)
+ 
 
 class Vehicle(Base):
     __tablename__ = 'vehicles'
@@ -40,11 +42,17 @@ class Planet(Base):
     diameter = Column(String)
     gravity = Column(String)
     name = Column(String)
-
+    
 class Favorites(Base):
-    __tablename__ = 'favourites'
+    __tablename__ = 'favorites'
     id = Column(Integer, primary_key=True)
-    id_user_favourite = Column(Integer)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', back_populates='favorites')
+    character_id = Column(Integer, ForeignKey('characters.id'))
+    character = relationship('Character')
+    planet_id = Column(Integer, ForeignKey('planets.id'))
+    planet = relationship('Planet')
+
 
     def to_dict(self):
         return {}
